@@ -22,76 +22,200 @@
  *    with the string you added to the array, but a broken image.
  *
  */
-
-const FRESH_PRINCE_URL =
-  "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
-const CURB_POSTER_URL =
-  "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL =
-  "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
-
-// This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
+const raquets = [
+    { 
+        url: "https://joybadminton.com/cdn/shop/files/YonexArcsaber2Feel_BlackGreen_Pre-Strung2.png?v=1732321999&width=1946", 
+        price: 59.99,
+        description: [
+            "Color: Black/Green",
+            "Frame: HT Graphite",
+            "Balance: Even Balance"
+        ]
+    },
+    { 
+        url: "https://joybadminton.com/cdn/shop/files/YonexNanoflare370SPEED_Blue_NO.png?v=1727986601&width=1946", 
+        price: 131.50,
+        description: [
+            "Color: Blue",
+            "Frame: HM Graphite / Nanocell NEO / EX - HMG",
+            "Balance: Head Light"
+        ]
+    },
+    { 
+        url: "https://joybadminton.com/cdn/shop/files/YonexDuora55_DarkGrey_NO.png?v=1742602636&width=1946",
+        price: 119,
+        description: [
+            "Color: Dark Grey",
+            "Frame: H.M. Graphite / NANOMETRIC β",
+            "Balance: Even Balance"
+        ]
+    },
+    { 
+        url: "https://joybadminton.com/cdn/shop/files/VictorDriveXMetallicDX-METALLIC-C_Black_4.png?v=1735848846&width=1946", 
+        price: 114.99,
+        description: [
+            "Color: Black",
+            "Frame: High Resilience Modulus Graphite + HARD CORED TECHNOLOGY",
+            "Balance: Even balance"
+        ]
+    },
+    { 
+        url: "https://joybadminton.com/cdn/shop/files/VictorThrusterSyn_TK-SYN-C_4.png?v=1734384447&width=1946",
+        price: 114.99,
+        description: [
+            "Color: Black",
+            "Frame: Frame: High Resilience Modulus Graphite + HARD CORED TECHNOLOGY",
+            "Balance: Head Heavy"
+        ]
+    },
+    { 
+        url: "https://joybadminton.com/cdn/shop/files/VictorThrusterHawkTK-HAWK-A_White_4.png?v=1734140200&width=1946",
+        price: 89.99,
+        description: [
+            "Color: White",
+            "Frame: High Resilience Modulus Graphite + PYROFIL + HARD CORED TECHNOLOGY",
+            "Balance: Head Heavy"
+        ]
+    },
+    { 
+        url: "https://joybadminton.com/cdn/shop/files/AN7000I-5UG6-PINK4.png?v=1728603014&width=1946",
+        price: 239.99,
+        description: [
+            "Color: Pink",
+            "Frame: Military Grade Carbon Fiber",
+            "Balance: Head Heavy"
+        ]
+    },
+    { 
+        url: "https://joybadminton.com/cdn/shop/files/AN9000I-5UG6MAIN_e3250103-26f9-4762-81ff-9ef4a0e73e5a.png?v=1727464978&width=1946",
+        price: 259.99,
+        description: [
+            "Color: Black/Gold",
+            "Frame: Carbon Fibre",
+            "Balance: Head Heavy"
+        ]
+    }
 ];
-// Your final submission should have much more data than this, and
-// you should use more than just an array of strings to store it all.
 
-// This function adds cards the page to display the data in the array
-function showCards() {
-  const cardContainer = document.getElementById("card-container");
-  cardContainer.innerHTML = "";
-  const templateCard = document.querySelector(".card");
+// Name of raquets
+const parsedNames = raquets.map((item) => {
+    const url = item.url;
+    const price = item.price;
+    
+    const filename = url.split('/').pop().split('?')[0];
+    const nameWithoutExtension = filename.replace(/\.[^/.]+$/, "");
+    const nameParts = nameWithoutExtension.split('_');
+    let formattedName = "";
 
-  for (let i = 0; i < titles.length; i++) {
-    let title = titles[i];
-
-    // This part of the code doesn't scale very well! After you add your
-    // own data, you'll need to do something totally different here.
-    let imageURL = "";
-    if (i == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
+    if (nameParts[0].includes("Yonex") || nameParts[0].includes("Victor")) {
+        formattedName = nameParts[0]
+            .replace(/([a-z])([A-Z])/g, '$1 $2')
+            .replace(/([A-Za-z])(\d)/g, '$1 $2')
+            .replace(/(\d)([A-Za-z])/g, '$1 $2');
+    } else {
+        const name = nameParts[0];
+        if (name.startsWith("AN")) {
+            const dashIndex = name.indexOf("-");
+            const model = name.substring(2, dashIndex !== -1 ? dashIndex : undefined);
+            formattedName = "Li-Ning Auronaut " + model;
+        } else {
+            formattedName = "Li-Ning " + name.replace(/([a-z])([A-Z])/g, '$1 $2');
+        }
     }
 
-    const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
-    cardContainer.appendChild(nextCard); // Add new card to the container
-  }
+    return { formattedName, price };
+});
+
+console.log(parsedNames);
+
+// Function to display cards
+function showCards() {
+    const cardContainer = document.getElementById("card-container");
+    cardContainer.innerHTML = "";
+    const templateCard = document.querySelector(".card");
+
+    for (let i = 0; i < raquets.length; i++) {
+        let raq_name = parsedNames[i].formattedName;
+        let imageURL = raquets[i].url;
+        let price = raquets[i].price;
+        let description = raquets[i].description;
+
+        const nextCard = templateCard.cloneNode(true); // Copy the template card
+        editCardContent(nextCard, raq_name, imageURL, price, description); // Pass the description array
+        cardContainer.appendChild(nextCard); // Add the new card to the container
+    }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
-  card.style.display = "block";
+// Function to sort by price
+function sortByPrice() {
+    const sortedData = raquets.map((raq, index) => ({
+        name: parsedNames[index].formattedName,
+        imageUrl: raq.url,
+        price: raq.price,
+        description: raq.description
+    })).sort((a, b) => a.price - b.price);
 
-  const cardHeader = card.querySelector("h2");
-  cardHeader.textContent = newTitle;
-
-  const cardImage = card.querySelector("img");
-  cardImage.src = newImageURL;
-  cardImage.alt = newTitle + " Poster";
-
-  // You can use console.log to help you debug!
-  // View the output by right clicking on your website,
-  // select "Inspect", then click on the "Console" tab
-  console.log("new card:", newTitle, "- html: ", card);
+    showSortedCards(sortedData);
 }
 
-// This calls the addCards() function when the page is first loaded
+// Function to sort by model (name)
+function sortByModel() {
+    const sortedData = raquets.map((raq, index) => ({
+        name: parsedNames[index].formattedName,
+        imageUrl: raq.url,
+        price: raq.price,
+        description: raq.description
+    })).sort((a, b) => a.name.localeCompare(b.name));
+
+    showSortedCards(sortedData);
+}
+
+// Function to display the sorted cards
+function showSortedCards(sortedData) {
+    const cardContainer = document.getElementById("card-container");
+    cardContainer.innerHTML = "";
+    const templateCard = document.querySelector(".card");
+
+    sortedData.forEach((raq) => {
+        const nextCard = templateCard.cloneNode(true);
+        editCardContent(nextCard, raq.name, raq.imageUrl, raq.price, raq.description);
+        cardContainer.appendChild(nextCard);
+    });
+}
+
+// Function to edit card content
+function editCardContent(card, newTitle, newImageURL, price, description) {
+    card.style.display = "block";
+
+    const cardHeader = card.querySelector("h2");
+    cardHeader.textContent = newTitle;
+
+    const cardImage = card.querySelector("img");
+    cardImage.src = newImageURL;
+    cardImage.alt = newTitle + " Poster";
+
+    const priceElement = card.querySelector(".price");
+    priceElement.textContent = "$" + price.toFixed(2);
+
+    const descriptionElement = card.querySelector(".description");
+    if (descriptionElement) {
+        const ul = document.createElement("ul");
+        description.forEach((point) => {
+            const li = document.createElement("li");
+            li.textContent = point;
+            ul.appendChild(li);
+        });
+        descriptionElement.appendChild(ul);
+    }
+}
+
+// Initial page load function
 document.addEventListener("DOMContentLoaded", showCards);
 
+// Button click alert
 function quoteAlert() {
-  console.log("Button Clicked!");
-  alert(
-    "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!"
-  );
-}
-
-function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
-  showCards(); // Call showCards again to refresh
+    console.log("Button Clicked!");
+    alert(
+        "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!"
+    );
 }
