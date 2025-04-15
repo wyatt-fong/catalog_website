@@ -46,7 +46,7 @@ const raquets = [
         price: 119,
         description: [
             "Color: Dark Grey",
-            "Frame: H.M. Graphite / NANOMETRIC β",
+            "Frame: H.M. Graphite / NANOMETRIC",
             "Balance: Even Balance"
         ]
     },
@@ -215,7 +215,8 @@ document.addEventListener("DOMContentLoaded", showCards);
 // Button click alert
 function quoteAlert() {
     console.log("Button Clicked!");
-    alert(
-        "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!"
-    );
+    const confirmation = confirm("Items can be purchased on external website 'Joy Badminton'. You are going to be redirected to https://joybadminton.com/. Do you want to proceed?");
+    if (confirmation) {
+        window.location.href = "https://joybadminton.com/";
+    }
 }
