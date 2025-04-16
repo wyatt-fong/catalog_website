@@ -5,27 +5,36 @@
     <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
     <meta charset="UTF=8"/>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="icon/Custom-Icon-Design-Pretty-Office-7-Sport-shuttercock.256.png" type="image/x-icon">
+    <link rel="icon" href="icon/favicon.png" type="image/x-icon">
     <script type="text/javascript" src="scripts.js"></script>
   </head>
 
   <body>
     <header class="main-header">
-      <h1 class="title">Best Sellers</h1>
+      <h2 class="title">Best Sellers of April</h2>
     </header>
-    <div id="card-container"></div>
-    <div class="card" style="display: none">
-      <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <div class="price"></div>
-        <div class="description"></div>
-      </div>
-    </div>
-    <div class="footer">
-      <button onclick="quoteAlert();">Purchase Item(s)</button>
-      <button onclick="sortByModel();">Sort by Model</button>
-      <button onclick="sortByPrice();">Sort by Price</button>
-    </div>
+    <div id="main-layout">
+        <div id="sidebar">
+            <input type="text" id="search-bar" placeholder="Search models..." />
+            <button onclick="sortByModel();">Sort by Model</button>
+            <button onclick="sortByPrice();">Sort by Price</button>
+            <button onclick="purchaseItems();">Purchase Item(s)</button>
+            
+        </div>
+        <div id="card-container"></div>
+        <div class="card" style="display: none">
+            <div class="card-content">
+                <h3>Racquet Name</h3>
+                <div class="image-wrapper">
+                    <img src="" alt="Racquet Image" />
+                    <div class="price">$99.99</div>
+                </div>
+                <div class="description"></div>
+            </div>
+        </div>
+    </div> 
   </body>
+  <footer>
+    <p>All images and listings are from Joy Badminton. Refer to "Purchase Item(s)" button to be redirected.</p>
+  </footer>
 </html>
