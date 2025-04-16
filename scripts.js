@@ -193,7 +193,7 @@ function sortByPrice() {
     document.querySelectorAll("#sidebar button").forEach(btn =>
         btn.classList.remove("active-sort")
     );
-    document.querySelector('#sidebar button:nth-child(4)').classList.add("active-sort");
+    document.querySelector('#sidebar button:nth-child(3)').classList.add("active-sort");
 
     const fullSorted = sortedData.map(({ name }) => {
         const index = parsedNames.findIndex(p => p.formattedName === name);
@@ -217,7 +217,7 @@ function sortByModel() {
     document.querySelectorAll("#sidebar button").forEach(btn =>
         btn.classList.remove("active-sort")
     );
-    document.querySelector('#sidebar button:nth-child(3)').classList.add("active-sort");
+    document.querySelector('#sidebar button:nth-child(2)').classList.add("active-sort");
 
     const fullSorted = sortedData.map(({ name }) => {
         const index = parsedNames.findIndex(p => p.formattedName === name);
